@@ -20,7 +20,9 @@ file.each do |line|
   elsif line =~ /[^0-9a-z]\)/
     if is_create_table
       create += ");"
-      create += "\nALTER table " + table_name + " add constraint " + table_name + "_pkey primary key (" + pkey_name + ");\n"
+      if pkey_name != ""
+        create += "\nALTER table " + table_name + " add constraint " + table_name + "_pkey primary key (" + pkey_name + ");\n"
+      end
       is_create_table = false
     end
   elsif is_create_table
@@ -36,6 +38,7 @@ file.each do |line|
       pkey_name = line.scan(/\w+/)[2]
     else
       create += line
+      pkey_name = ""
     end
   end
 end
