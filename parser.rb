@@ -10,14 +10,15 @@ table_name = ""
 pkey_name = ""
 unload_file = ""
 
-file = File.open(WORK_DIR "tur.sql")
+file = File.open(WORK_DIR + "tur.sql")
 file.each do |line|
   if line =~ /create table/ and line !~ /--/
     line["\"informix\"."] = ""
     is_create_table = true
     create += line
     table_name = line.split(" ")[2]
-  else if line =
+  elsif line =~ /unload/
+    unload_file = line.scan(/\w+/)[3]+".unl"
   elsif line =~ /\([^0-9a-z]/
     if is_create_table
       create += line
@@ -26,8 +27,9 @@ file.each do |line|
     if is_create_table
       create += ");"
       if pkey_name != ""
-        create += "\nALTER table " + table_name + " add constraint " + table_name + "_pkey primary key (" + pkey_name + ");\n"
+        create += "\nALTER table " + table_name + " add constraint " + table_name + "_pkey primary key (" + pkey_name + ");"
       end
+      create += "\nCOPY " + table_name + " FROM \'" + WORK_DIR + unload_file + "\' WITH DELIMITER AS \'|\';\n"
       is_create_table = false
     end
   elsif is_create_table
