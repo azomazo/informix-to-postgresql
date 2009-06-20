@@ -6,22 +6,27 @@ require 'find'
 
 WORK_DIR = "../tur.exp/"
 
+current_file = ""
+
 str = ""
 
 Dir.foreach(WORK_DIR) do |path| 
-  puts path
-  name = File.basename(WORK_DIR + path)
+  current_file = WORK_DIR + path
+  conv = %x(enconv current_file)
+  puts "Ковертация " + path + " выполнена"
+  if conv != ""
+    puts conv
+  end
+  FileUtils.move(current_file, cuurrent_file + "_old")
+
+  tr = %x(tr -d \015 current_file + "_old")
+
+  name = File.basename(current_file)
+  
   if name =~ /unl/ and name !=~ /pg/
-    file = File.new(WORK_DIR + path)
-    out = File.new(WORK_DIR + path + ".pg", "w+")
+    file = File.new(current_file)
+    out = File.new(current_file + ".pg", "w+")
     file.each do |line|
-#      s = line.rindex("|")-1
-#      puts s
-#      puts line
-#      puts line[0..s]
-#      if line[0] == "\\"
-#        line[0] = ""
-#      end
       puts line
       line.chomp!
       if line[/.$/] == "|"
@@ -30,8 +35,6 @@ Dir.foreach(WORK_DIR) do |path|
       else
         str = str + line
       end
-#      puts line.chomp("|")
-#      out.puts line.chomp("|")
     end
   end
 end

@@ -2,17 +2,22 @@
 
 # Скрипт для разбора файла дампа informix и перевода в postgres
 
+WORK_DIR = "../tur.exp/"
+
 is_create_table = false
 create = ""
 table_name = ""
 pkey_name = ""
-file = File.open("../tur.exp/tur.sql")
+unload_file = ""
+
+file = File.open(WORK_DIR "tur.sql")
 file.each do |line|
   if line =~ /create table/ and line !~ /--/
     line["\"informix\"."] = ""
     is_create_table = true
     create += line
     table_name = line.split(" ")[2]
+  else if line =
   elsif line =~ /\([^0-9a-z]/
     if is_create_table
       create += line
