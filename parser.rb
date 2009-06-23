@@ -2,6 +2,8 @@
 
 # Скрипт для разбора файла дампа informix и перевода в postgres
 
+require 'pathname'
+
 WORK_DIR = "../tur.exp/"
 
 is_create_table = false
@@ -18,7 +20,7 @@ file.each do |line|
     create += line
     table_name = line.split(" ")[2]
   elsif line =~ /unload/
-    unload_file = line.scan(/\w+/)[3]+".unl"
+    unload_file = line.scan(/\w+/)[3]+".unl.pg"
   elsif line =~ /\([^0-9a-z]/
     if is_create_table
       create += line
@@ -29,7 +31,8 @@ file.each do |line|
       if pkey_name != ""
         create += "\nALTER table " + table_name + " add constraint " + table_name + "_pkey primary key (" + pkey_name + ");"
       end
-      create += "\nCOPY " + table_name + " FROM \'" + WORK_DIR + unload_file + "\' WITH DELIMITER AS \'|\';\n"
+      path = Pathname.new(WORK_DIR + unload_file)
+      create += "\nCOPY " + table_name + " FROM \'" + path.realpath + "\' WITH DELIMITER AS \'|\' NULL AS \'\';\n"
       is_create_table = false
     end
   elsif is_create_table
