@@ -7,6 +7,7 @@ require 'pathname'
 WORK_DIR = "../tur.exp/"
 
 is_create_table = false
+is_create_index = false
 create = ""
 table_name = ""
 pkey_name = ""
@@ -21,6 +22,9 @@ file.each do |line|
     table_name = line.split(" ")[2]
   elsif line =~ /unload/
     unload_file = line.scan(/\w+/)[3]+".unl.pg"
+  elsif line =~ /create/ and line =~ /index/
+    line["\"informix\"."] = ""
+    is_create_index = true
   elsif line =~ /\([^0-9a-z]/
     if is_create_table
       create += line
