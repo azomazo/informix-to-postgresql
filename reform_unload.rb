@@ -11,15 +11,14 @@ current_file = ""
 str = ""
 
 Dir.foreach(WORK_DIR) do |path| 
+  next if path == "." or path == ".."
+  break if path =~ /.pg/
   current_file = WORK_DIR + path
-  conv = %x(enconv current_file)
-  puts "Ковертация " + path + " выполнена"
+  conv = %x(enconv #{current_file})
+  puts "Convertation " + path + " complited"
   if conv != ""
     puts conv
   end
-  FileUtils.move(current_file, cuurrent_file + "_old")
-
-  tr = %x(tr -d \015 current_file + "_old")
 
   name = File.basename(current_file)
   
@@ -27,7 +26,6 @@ Dir.foreach(WORK_DIR) do |path|
     file = File.new(current_file)
     out = File.new(current_file + ".pg", "w+")
     file.each do |line|
-      puts line
       line.chomp!
       if line[/.$/] == "|"
         out.puts str == "" ? line.chomp("|") : str.chomp ("|")
