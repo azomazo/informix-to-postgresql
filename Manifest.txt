@@ -1,0 +1,8 @@
+.autotest
+History.txt
+Manifest.txt
+README.txt
+Rakefile
+bin/informix2postgres
+lib/informix2postgres.rb
+test/test_informix2postgres.rb
