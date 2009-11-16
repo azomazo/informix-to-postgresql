@@ -1,29 +1,29 @@
-= informix2postgres
+h1. informix2postgres
 
 * FIX (url)
 
-== DESCRIPTION:
+h2. DESCRIPTION:
 
 Convert Infrmix (9.x or above) backup to PostgrerSQL backup (8.3 or above)
 
-== FEATURES/PROBLEMS:
+h2. FEATURES/PROBLEMS:
 
 * FIX (list of features or problems)
 
-== SYNOPSIS:
+h2. SYNOPSIS:
 
   -i informix_dir -o output_dir -f cp1251 -t utf-8
 
-== REQUIREMENTS:
+h2. REQUIREMENTS:
 
 * enca (enconv)
 * iconv
 
-== INSTALL:
+h2 INSTALL:
 
 * FIX (sudo gem install, anything else)
 
-== LICENSE:
+h2. LICENSE:
 
 (The MIT License)
 
