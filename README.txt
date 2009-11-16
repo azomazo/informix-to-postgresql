@@ -4,7 +4,7 @@
 
 == DESCRIPTION:
 
-FIX (describe your package)
+Convert Infrmix (9.x or above) backup to PostgrerSQL backup (8.3 or above)
 
 == FEATURES/PROBLEMS:
 
@@ -16,7 +16,8 @@ FIX (describe your package)
 
 == REQUIREMENTS:
 
-* FIX (list of requirements)
+* enca (enconv)
+* iconv
 
 == INSTALL:
 
