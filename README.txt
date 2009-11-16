@@ -12,7 +12,7 @@ Convert Infrmix (9.x or above) backup to PostgrerSQL backup (8.3 or above)
 
 == SYNOPSIS:
 
-  FIX (code sample of usage)
+  -i informix_dir -o output_dir -f cp1251 -t utf-8
 
 == REQUIREMENTS:
 

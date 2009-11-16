@@ -1,5 +1,10 @@
 #!/usr/bin/env ruby
 
+#== Usage
+# -i infirmix_backup_dir -o output_dir -f cp1251 -t utf-8
+#
+#== Options
+
 require 'lib/informix2postgres'
 
 app = Informix2Postgres.new(ARGV, STDIN)
