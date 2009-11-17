@@ -36,7 +36,8 @@ class SQLParser
           if pkey_name != ""
             create += "\nALTER table " + table_name + " add constraint " + table_name + "_pkey primary key (" + pkey_name + ");"
           end
-          create += "\nCOPY " + table_name + " FROM \'" + unload_file + "\' WITH DELIMITER AS \'|\' NULL AS \'\';\n"
+          p = Pathname.new(@options.output_dir + "/" + unload_file)
+          create += "\nCOPY " + table_name + " FROM \'" + p.realpath + "\' WITH DELIMITER AS \'|\' NULL AS \'\';\n"
           is_create_table = false
         end
       elsif is_create_table
@@ -57,7 +58,7 @@ class SQLParser
       end
     end
     
-    pg_file = File.new (@options.output_dir + "/" + main_filename, "w+")
+    pg_file = File.new(@options.output_dir + "/" + main_filename, "w+")
     pg_file.puts create
   end
 

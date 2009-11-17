@@ -19,7 +19,7 @@ h2. REQUIREMENTS:
 * enca (enconv)
 * iconv
 
-h2 INSTALL:
+h2. INSTALL:
 
 * FIX (sudo gem install, anything else)
 
